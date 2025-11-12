@@ -1,0 +1,143 @@
+=====================================
+SATYANETRA - QUICK REFERENCE COMMANDS
+=====================================
+
+📦 SETUP
+--------
+cd backend
+cp .env.example .env
+# Edit .env with Supabase credentials
+pip install -r requirements.txt
+
+🚀 START SERVERS
+----------------
+# Terminal 1 - Backend
+cd backend
+python run.py
+
+# Terminal 2 - Frontend
+npm run dev
+
+🧪 TEST BACKEND
+---------------
+cd backend
+./test_api.sh
+
+# Or manual test:
+curl http://localhost:8000/health
+
+📊 VIEW API DOCS
+----------------
+http://localhost:8000/docs
+
+🗄️ DATABASE SETUP
+------------------
+1. Open Supabase Dashboard
+2. Go to SQL Editor
+3. Paste content from: backend/database/migration.sql
+4. Click Run
+
+🔑 CREATE TEST USER
+-------------------
+curl -X POST http://localhost:8000/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Test User","email":"test@example.com","password":"TestPass123"}'
+
+🔐 LOGIN
+--------
+curl -X POST http://localhost:8000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"TestPass123"}'
+
+📝 ANALYZE TEXT (replace TOKEN)
+--------------------------------
+curl -X POST http://localhost:8000/analyze/text \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"text":"This is fake propaganda and misinformation"}'
+
+🕸️ GET NETWORK MAP (replace TOKEN)
+------------------------------------
+curl http://localhost:8000/network/map \
+  -H "Authorization: Bearer YOUR_TOKEN"
+
+📸 ANALYZE MEME (replace TOKEN and image.jpg)
+-----------------------------------------------
+curl -X POST http://localhost:8000/analyze/meme \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -F "file=@image.jpg"
+
+🔍 VIEW DATABASE
+----------------
+1. Open Supabase Dashboard
+2. Go to Table Editor
+3. View: users, analysis_logs, alerts
+
+📚 DOCUMENTATION
+----------------
+backend/START_HERE.md       - Quick start (3 min)
+backend/QUICKSTART.md       - Fast setup (5 min)
+backend/INSTALLATION.md     - Detailed install
+backend/INTEGRATION.md      - Frontend integration
+backend/README.md           - Full documentation
+SETUP_COMPLETE.md           - Complete guide
+BACKEND_SUMMARY.md          - Technical summary
+
+🐛 TROUBLESHOOTING
+------------------
+# Port in use
+lsof -i :8000  # Mac/Linux
+netstat -ano | findstr :8000  # Windows
+
+# Check Python
+python --version  # Need 3.9+
+
+# Reinstall
+pip install -r requirements.txt --upgrade
+
+# Check backend running
+curl http://localhost:8000/health
+
+# CORS issues
+# Add frontend URL to CORS_ORIGINS in .env
+
+🌐 URLS
+-------
+Backend API: http://localhost:8000
+API Docs: http://localhost:8000/docs
+Frontend: http://localhost:3000 (or 5173)
+Supabase: https://app.supabase.com
+
+📁 KEY FILES
+------------
+backend/src/main.py              - FastAPI app
+backend/src/api/auth.py          - Authentication
+backend/src/api/analyze_text.py  - Text analysis
+backend/src/api/analyze_meme.py  - Image analysis
+backend/src/api/network_map.py   - Network data
+backend/database/migration.sql   - Database schema
+backend/.env                     - Configuration
+
+🔐 ENVIRONMENT VARIABLES
+------------------------
+SUPABASE_URL=https://xxx.supabase.co
+SUPABASE_ANON_KEY=eyJhbGc...
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...
+JWT_SECRET_KEY=your-secret-key-here
+CORS_ORIGINS=http://localhost:3000,http://localhost:5173
+
+✅ VERIFICATION CHECKLIST
+-------------------------
+[ ] Python 3.9+ installed
+[ ] Supabase project created
+[ ] backend/.env configured
+[ ] Database migration executed
+[ ] pip install completed
+[ ] Backend server running (port 8000)
+[ ] Health check returns success
+[ ] API docs accessible
+[ ] Test script passes
+[ ] Can create user via API
+[ ] Frontend running (optional)
+
+=====================================
